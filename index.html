@@ -1,0 +1,1004 @@
+<html lang="ja">
+<head>
+    <meta name="robots" content="noindex" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年度 愛知国際病院 BSC事業計画展開表</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font for better readability -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        /* Smooth transition for columns */
+        th, td { transition: all 0.3s ease; }
+        .hidden-col { display: none; }
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { height: 10px; width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .discussion-box {
+            background-color: #fffbeb;
+            border: 1px dashed #f59e0b;
+            color: #92400e;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-top: 8px;
+        }
+
+        /* Filter Styles */
+        .role-badge {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 999px;
+            margin-right: 4px;
+            margin-top: 4px;
+            display: inline-block;
+            border: 1px solid transparent;
+            font-weight: 500;
+        }
+        
+        /* Role Colors */
+        .role-nurse { background-color: #fce7f3; color: #be185d; border-color: #fbcfe8; }
+        .role-doctor { background-color: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
+        .role-rehab { background-color: #dcfce7; color: #15803d; border-color: #bbf7d0; }
+        .role-admin { background-color: #f3f4f6; color: #374151; border-color: #e5e7eb; }
+        .role-other { background-color: #fff7ed; color: #c2410c; border-color: #ffedd5; }
+        .role-all { background-color: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+
+        /* Dimming Effect */
+        .dimmed { opacity: 0.2; filter: grayscale(100%); }
+        .highlight { opacity: 1; transform: scale(1.02); transition: transform 0.2s; background-color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); z-index: 10; position: relative; border-radius: 4px; }
+
+        /* View Switcher */
+        .view-switch-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+        .view-switch-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .view-switch-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            background: #e2e8f0;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        .view-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .view-btn:hover { background-color: #f1f5f9; }
+        .view-btn.active { background-color: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-color: #cbd5e1; }
+        
+        /* Specific Active Colors */
+        .view-btn.active[data-view="main"] { color: #1e40af; border-left: 3px solid #1e40af; }
+        .view-btn.active[data-view="nursing"] { color: #be185d; border-left: 3px solid #be185d; }
+        .view-btn.active[data-view="medical_dept"] { color: #047857; border-left: 3px solid #047857; }
+        .view-btn.active[data-view="admin"] { color: #374151; border-left: 3px solid #374151; }
+        .view-btn.active[data-view="home_link"] { color: #c2410c; border-left: 3px solid #c2410c; }
+        .view-btn.active[data-view="committee"] { color: #dc2626; border-left: 3px solid #dc2626; }
+        .view-btn.active[data-view="affiliated"] { color: #854d0e; border-left: 3px solid #854d0e; }
+
+        /* KPI Tooltip - Enhanced for Story */
+        .kpi-item {
+            position: relative;
+            cursor: pointer;
+            border-left: 3px solid #cbd5e1; /* Default neutral border */
+        }
+        .kpi-item:hover {
+            background-color: #f1f5f9;
+            border-left-color: #3b82f6; /* Blue highlight on hover */
+        }
+        .kpi-tooltip {
+            visibility: hidden;
+            width: 260px;
+            background-color: #1e293b;
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 10px 14px;
+            position: absolute;
+            z-index: 50;
+            bottom: 130%;
+            left: 50%;
+            margin-left: -130px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+        }
+        .kpi-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -6px;
+            border-width: 6px;
+            border-style: solid;
+            border-color: #1e293b transparent transparent transparent;
+        }
+        .kpi-item:hover .kpi-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen p-4 pb-24 relative">
+
+    <div class="max-w-full mx-auto bg-white shadow-xl rounded-xl overflow-hidden relative z-0">
+        
+        <!-- Header -->
+        <div class="bg-slate-800 text-white p-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold flex items-center gap-2 mb-2">
+                        <i class="ph ph-kanban text-3xl text-blue-400"></i>
+                        2026年度 愛知国際病院 BSC事業計画展開表
+                    </h1>
+                    <p class="text-slate-300 text-sm">
+                        KPIの「意図・ストーリー」を重視した戦略マップ（Ver 30.0 / 業務プロセスKPI統合版）
+                    </p>
+                </div>
+                
+                <!-- View Switcher -->
+                <div class="view-switch-wrapper">
+                    <span class="view-switch-label">事業計画書書式</span>
+                    <div class="view-switch-container">
+                        <button onclick="switchView('main')" data-view="main" class="view-btn active">
+                            <i class="ph ph-globe"></i> 全体戦略
+                        </button>
+                        <button onclick="switchView('nursing')" data-view="nursing" class="view-btn">
+                            <i class="ph ph-heart-beat"></i> 看護部 詳細
+                        </button>
+                        <button onclick="switchView('medical_dept')" data-view="medical_dept" class="view-btn">
+                            <i class="ph ph-stethoscope"></i> 診療部 詳細
+                        </button>
+                        <button onclick="switchView('admin')" data-view="admin" class="view-btn">
+                            <i class="ph ph-desktop"></i> 事務 詳細
+                        </button>
+                        <button onclick="switchView('home_link')" data-view="home_link" class="view-btn">
+                            <i class="ph ph-house-line"></i> 在宅・連携 詳細
+                        </button>
+                        <button onclick="switchView('committee')" data-view="committee" class="view-btn">
+                            <i class="ph ph-users-three"></i> 委員会・チーム
+                        </button>
+                        <button onclick="switchView('affiliated')" data-view="affiliated" class="view-btn">
+                            <i class="ph ph-buildings"></i> えまい・愛泉館・カナン
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KGI Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 bg-slate-700 p-4 rounded-lg mx-6 mb-6">
+                <div class="border-l-4 border-red-400 pl-3">
+                    <div class="text-xs text-red-200 uppercase font-bold">全体KGI: 財務</div>
+                    <div class="font-semibold text-sm">経常利益率の向上<br>各施設高稼働の維持</div>
+                </div>
+                <div class="border-l-4 border-blue-400 pl-3">
+                    <div class="text-xs text-blue-200 uppercase font-bold">全体KGI: 顧客</div>
+                    <div class="font-semibold text-sm">各種満足度目標の達成<br>新規患者・利用者数の増加</div>
+                </div>
+                <div class="border-l-4 border-green-400 pl-3">
+                    <div class="text-xs text-green-200 uppercase font-bold">全体KGI: プロセス</div>
+                    <div class="font-semibold text-sm">各部門の連携強化<br>業務効率の改善</div>
+                </div>
+                <div class="border-l-4 border-purple-400 pl-3">
+                    <div class="text-xs text-purple-200 uppercase font-bold">全体KGI: 学習</div>
+                    <div class="font-semibold text-sm">職員満足度上昇<br>離職率の低下</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="p-4 bg-gray-100 border-b flex flex-wrap gap-4 items-center sticky top-0 z-30 shadow-sm" id="filter-container">
+            <!-- Dept Visibility -->
+            <div class="flex items-center gap-2 border-r border-gray-300 pr-4" id="controls-container">
+                <span class="text-xs font-bold text-gray-500 uppercase">部署表示:</span>
+                <!-- Buttons will be injected here by JS -->
+            </div>
+
+            <!-- Role Filter -->
+            <div class="flex items-center gap-2" id="role-filter-group">
+                <span class="text-xs font-bold text-gray-500 uppercase">関連職種で絞り込み:</span>
+                <button onclick="filterRole('all')" id="btn-all" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-700 text-white shadow-sm hover:bg-slate-600 transition-colors">全表示</button>
+                <button onclick="filterRole('nurse')" id="btn-nurse" class="px-3 py-1 rounded-full text-xs font-medium bg-white border border-pink-200 text-pink-700 hover:bg-pink-50 transition-colors flex items-center gap-1"><i class="ph ph-heart-beat"></i> 看護職</button>
+                <button onclick="filterRole('doctor')" id="btn-doctor" class="px-3 py-1 rounded-full text-xs font-medium bg-white border border-sky-200 text-sky-700 hover:bg-sky-50 transition-colors flex items-center gap-1"><i class="ph ph-stethoscope"></i> 医師</button>
+                <button onclick="filterRole('rehab')" id="btn-rehab" class="px-3 py-1 rounded-full text-xs font-medium bg-white border border-green-200 text-green-700 hover:bg-green-50 transition-colors flex items-center gap-1"><i class="ph ph-person-simple-walk"></i> リハビリ</button>
+                <button onclick="filterRole('admin')" id="btn-admin" class="px-3 py-1 rounded-full text-xs font-medium bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-1"><i class="ph ph-desktop"></i> 事務・連携</button>
+                <button onclick="filterRole('other')" id="btn-other" class="px-3 py-1 rounded-full text-xs font-medium bg-white border border-orange-200 text-orange-700 hover:bg-orange-50 transition-colors flex items-center gap-1"><i class="ph ph-flask"></i> 薬剤/検査/栄養</button>
+            </div>
+        </div>
+
+        <!-- Main Table -->
+        <div class="overflow-x-auto pb-6">
+            <table class="w-full min-w-[1600px] border-collapse text-left" id="main-table">
+                <thead>
+                    <!-- Hierarchy Grouping Row -->
+                    <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        <th class="p-2 sticky left-0 bg-slate-50 z-20 shadow-r"></th>
+                        <!-- Group 1: Corporate (Back to Left) -->
+                        <th class="p-2 border-r border-slate-300 bg-slate-200/30 text-center">
+                            Corporate (法人全体)
+                        </th>
+                        <!-- Group 2: Hospital (Back to Middle) -->
+                        <th id="group-header-hospital-single" class="p-2 border-r border-blue-300 bg-blue-50 text-center text-blue-900 font-bold">
+                             Hospital Goal (病院目標)
+                        </th>
+                        <!-- Group 3: Hospital Departments (Right) -->
+                        <th id="group-header-hospital-depts" class="p-2 border-r-2 border-blue-300 bg-blue-50/50 text-center text-blue-900 font-bold" colspan="4">
+                            Hospital Departments (病院各部署)
+                        </th>
+                        <!-- Group 4: Facilities -->
+                        <th id="group-header-facility" class="p-2 bg-yellow-50 text-center text-yellow-800" colspan="2">
+                            Affiliated (関連事業所)
+                        </th>
+                    </tr>
+
+                    <!-- Main Header Row -->
+                    <tr class="bg-slate-100 text-slate-700 border-b-2 border-slate-300 relative" id="table-header">
+                        <th class="p-4 w-48 font-bold sticky left-0 bg-slate-100 z-20 shadow-r text-center align-bottom">BSCの視点</th>
+                        
+                        <!-- 1. Corporate Goal (Back to First) -->
+                        <th class="p-4 w-64 font-bold border-r border-slate-300 bg-slate-200/50 align-bottom">
+                            <div class="flex flex-col">
+                                <span class="text-lg">法人目標</span>
+                                <span class="text-xs font-normal text-slate-500 mt-1">愛泉会 全体方針</span>
+                            </div>
+                        </th>
+
+                        <!-- 2. Hospital Goal (Back to Second) -->
+                        <th id="hospital-goal-header" class="p-4 w-64 font-bold border-r-2 border-blue-300 bg-blue-100/50 align-bottom">
+                            <div class="flex flex-col">
+                                <span class="text-lg text-blue-900">病院目標</span>
+                                <span class="text-xs font-normal text-blue-700 mt-1">病院全体統括</span>
+                                <div class="mt-1 text-[10px] text-blue-600 bg-white/50 px-1 rounded w-fit">上位目標</div>
+                            </div>
+                        </th>
+
+                        <!-- Department headers will be injected here -->
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Rows will be injected here by JS -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="p-4 bg-gray-50 text-xs text-gray-500 text-center border-t">
+            ※ KPIにマウスカーソルを合わせると、目標設定の「意図（ストーリー）」が表示されます。
+        </div>
+    </div>
+
+    <script>
+        // Icons SVG strings
+        const icons = {
+            eye: `<i class="ph ph-eye"></i>`,
+            eyeOff: `<i class="ph ph-eye-slash"></i>`,
+            finance: `<i class="ph ph-currency-yen text-xl text-red-600"></i>`,
+            customer: `<i class="ph ph-users text-xl text-blue-600"></i>`,
+            process: `<i class="ph ph-gears text-xl text-green-600"></i>`,
+            learning: `<i class="ph ph-graduation-cap text-xl text-purple-600"></i>`
+        };
+
+        // Data Definition - Restored department list for Main View
+        const departmentsMain = [
+            { key: 'outpatient', name: '外来部門', color: 'bg-blue-50', group: 'hospital' },
+            { key: 'careWard', name: '地ケア病棟', color: 'bg-green-50', group: 'hospital' },
+            { key: 'hospice', name: 'ホスピス病棟', color: 'bg-blue-50', group: 'hospital' },
+            { key: 'homeCare', name: '在宅診療部', color: 'bg-blue-50', group: 'hospital' },
+            { key: 'elderly', name: '老健・有料', color: 'bg-yellow-50', group: 'facility' },
+            { key: 'nursingStation', name: '訪問看護ST', color: 'bg-yellow-50', group: 'facility' }
+        ];
+
+        // Nursing Departments
+        const departmentsNursing = [
+            { key: 'nursing_all', name: '看護部全体', color: 'bg-pink-50', group: 'hospital' },
+            { key: 'nursing_outpatient', name: '外来看護', color: 'bg-blue-50', group: 'hospital' },
+            { key: 'nursing_careWard', name: '地ケア看護', color: 'bg-green-50', group: 'hospital' },
+            { key: 'nursing_hospice', name: 'ホスピス看護', color: 'bg-purple-50', group: 'hospital' },
+            { key: 'nursing_homeCare', name: '地域連携室', color: 'bg-orange-50', group: 'hospital' } 
+        ];
+
+        // Medical Departments
+        const departmentsMedical = [
+            { key: 'med_general', name: '診療部全体', color: 'bg-teal-100', group: 'hospital' },
+            { key: 'med_dept', name: '医局', color: 'bg-blue-50', group: 'hospital' },
+            { key: 'med_assist', name: '医師事務補助', color: 'bg-cyan-50', group: 'hospital' },
+            { key: 'med_pharm', name: '薬剤科', color: 'bg-green-50', group: 'hospital' },
+            { key: 'med_rad', name: '放射線科', color: 'bg-gray-50', group: 'hospital' },
+            { key: 'med_lab', name: '検査科', color: 'bg-yellow-50', group: 'hospital' },
+            { key: 'med_rehab', name: 'リハビリ科', color: 'bg-teal-50', group: 'hospital' },
+            { key: 'med_nutri', name: '栄養科', color: 'bg-orange-50', group: 'hospital' },
+            { key: 'med_rec', name: '診療録管理', color: 'bg-indigo-50', group: 'hospital' }
+        ];
+        
+        const adminDepts = [
+            { key: 'admin_corp', name: '法人本部', color: 'bg-gray-100', group: 'hospital' },
+            { key: 'admin_general', name: '総務課', color: 'bg-gray-50', group: 'hospital' },
+            { key: 'admin_medical', name: '医事課', color: 'bg-blue-50', group: 'hospital' }
+        ];
+
+        const homeLinkDepts = [
+            { key: 'home_clinic', name: '在宅診療部', color: 'bg-orange-50', group: 'hospital' },
+            { key: 'home_link', name: '地域連携室', color: 'bg-yellow-50', group: 'hospital' }
+        ];
+        
+        const committeeDepts = [
+            { key: 'comm_safety', name: '医療安全', color: 'bg-red-50', group: 'hospital' },
+            { key: 'comm_ict', name: '感染対策(ICT)', color: 'bg-teal-50', group: 'hospital' },
+            { key: 'comm_disaster', name: '防災', color: 'bg-gray-50', group: 'hospital' },
+            { key: 'comm_nst', name: 'NST', color: 'bg-orange-50', group: 'hospital' },
+            { key: 'comm_bedsore', name: '褥瘡対策委員会', color: 'bg-pink-50', group: 'hospital' },
+            { key: 'comm_dementia', name: '認知症ケア向上委員会', color: 'bg-purple-50', group: 'hospital' },
+            { key: 'comm_it', name: 'IT推進会議', color: 'bg-blue-50', group: 'hospital' },
+            { key: 'comm_training', name: '院内研修委員会', color: 'bg-indigo-50', group: 'hospital' },
+            { key: 'comm_lecture', name: '地域講座', color: 'bg-green-50', group: 'hospital' },
+            { key: 'comm_diabetes', name: '糖尿病教室', color: 'bg-yellow-50', group: 'hospital' }
+        ];
+
+        const affiliatedDepts = [
+             { key: 'aff_emai', name: '訪問看護STえまい', color: 'bg-teal-50', group: 'facility' },
+             { key: 'aff_aisen', name: '愛泉館(老健)', color: 'bg-yellow-50', group: 'facility' },
+             { key: 'aff_canaan', name: 'カナン(有料)', color: 'bg-amber-50', group: 'facility' }
+        ];
+
+        let currentDepartments = departmentsMain;
+
+        // Initial Visibility State
+        const visibility = {};
+        // Initialize all possible keys
+        [...departmentsMain, ...departmentsNursing, ...departmentsMedical, ...adminDepts, ...homeLinkDepts, ...committeeDepts, ...affiliatedDepts].forEach(d => visibility[d.key] = true);
+        
+        // Hospital Goal Visibility State
+        let isHospitalGoalVisible = true;
+
+        // --- DATASET 1: MAIN (General Strategic Map - Updated from CSV and PDF Feedback) ---
+        const bscDataMain = [
+            {
+                perspective: "財務の視点",
+                icon: icons.finance,
+                color: "border-l-4 border-red-500",
+                corp: {
+                    goal: "持続可能な法人の財務状況の維持・強化",
+                    details: [
+                        "財務状況を踏まえた安定的・計画的な法人運営", 
+                        "法人全体での稼働率向上の取り組み実施", 
+                        "DXによる効率的な法人運営",
+                        "在宅機能集約による新規顧客の獲得と安定運営" // Added
+                    ],
+                    kpi: [
+                        {label: "予算一致率", story: "予算作成の精度向上と予算目標に向けた運営の両立を図り、安定運営につなげる"},
+                        {label: "経常利益率", story: "予算目標達成かつ利益が出ているかの指標。未達の場合は原因分析と改善が必要"},
+                        {label: "各施設稼働率", story: "外来・通所含む全施設の稼働状況を確認。高稼働による経常利益率向上を目指す"},
+                        {label: "人件費率", story: "DXや働き方改革の成果を総合的に確認する指標"}
+                    ]
+                },
+                hospital: {
+                    goal: "提供体制の最適化による安定的な収益確保",
+                    details: [
+                        "診療データ分析による需要把握精度向上", 
+                        "病棟機能の整理と最適化", 
+                        "診療報酬改定の新規加算等の算定",
+                        "機能評価による財務の影響" // Added
+                    ],
+                    kpi: [
+                        {label: "予算達成", story: "原則予算目標は、①患者・利用者数②患者・利用者数単価の２つ設定"}, 
+                        {label: "地ケア入院加算", story: "施設や在宅からの患者受け入れや、退院支援など、医療の質の向上や労力をかけた結果が表れる指標"},
+                        {label: "新規加算点数", story: "2026年の診療報酬改定に合わせて行った業務改善の結果が表れる指標"}
+                    ]
+                },
+                departments: {} 
+            },
+            {
+                perspective: "顧客の視点",
+                icon: icons.customer,
+                color: "border-l-4 border-blue-500",
+                corp: {
+                    goal: "新地域医療構想を踏まえた切れ目のないサービス",
+                    details: [
+                        "行政・他法人との連携・自治会との関わり", 
+                        "地域講座の実施", 
+                        "「医療介護お任せください」と思ってもらえる医療機関に", // Updated
+                        "高齢者の暮らしを支える取り組み", 
+                        "在宅関連部門の連携強化", 
+                        "在宅医療包括支援センター(仮称)の整備",
+                        "在宅機能集約による患者のコスト(時間・労力・心理的負担)削減", // Added
+                        "入退院時の連携強化(生活の視点を取り入れたリハ強化)" // Added
+                    ],
+                    kpi: [
+                        {label: "各種満足度目標", story: "外来・入院満足度調査等の実施と各部目標設定。未実施の場合は検討。改善点抽出に活用"},
+                        {label: "紹介・逆紹介率", story: "地域連携における重要指標"},
+                        {label: "新規患者・利用者増", story: "顧客満足度や広報活動の結果を総合的に計る指標"}
+                    ]
+                },
+                hospital: {
+                    goal: "地域連携・地域貢献の強化とブランド価値向上",
+                    details: [
+                        "「治す医療から、治し支える医療」の患者への浸透", // Moved here
+                        "かかり付け医機能の強化", 
+                        "地域講座・市民講演会の継続と選択と集中", // Updated
+                        "WEB、SNSの閲覧件数増加",
+                        "機能評価による顧客満足への影響" // Added
+                    ],
+                    kpi: [{label: "総合満足度", story: "病院実施の患者満足度調査の結果の総合点が分かる指標"}, {label: "紹介・逆紹介率", story: "地域連携における重要指標"}, {label: "新規患者●%増", story: "病院として、前年度より●％増加を目標とする。患者満足度向上や、広報活動の結果が前年度より高くなるよう取り組む"}]
+                },
+                departments: {}
+            },
+            {
+                perspective: "業務プロセスの視点",
+                icon: icons.process,
+                color: "border-l-4 border-green-500",
+                corp: {
+                    goal: "全体最適化による業務プロセスの標準化と生産性向上",
+                    details: [
+                        "部門間連携の強化", // Updated wording
+                        "法人統一のシステム基盤整備", 
+                        "DX推進による業務変革(BPR)の支援", 
+                        "新理念に基づいた理想の人物像、行動指針の策定",
+                        "在宅機能の集約と高齢者の相談窓口の一本化準備" // Added
+                    ],
+                    kpi: [{label: "法人全体KPI達成につながる活動", story: "DX実施、部署関連携実施、ペーパーレス化、マニュアル改定、新規加算算定"}]
+                },
+                hospital: {
+                    goal: "患者に選択してもらえ、満足度の高い医療提供を行える体制",
+                    details: [
+                        "各部門が一体となった病院運営", 
+                        "事業所間データ連携と情報共有の強化", // Updated
+                        "安心、安全、スピーディーな患者対応", 
+                        "デジタル機器を用いた業務改善", 
+                        "診療報酬改定に合わせた業務改善", // Updated - Removed "(高齢者救急)"
+                        "機能評価による職種別業務の標準化や質の改善", // Added
+                        "属人化解消の取り組み(マニュアル化、パス整備)" // Added
+                    ],
+                    kpi: [
+                        {label: "外来予約率", story: "部門間連携のカギになる取り組み。医師等の業務効率をあげ、他部署にも影響。DX化、ペーパーレス化も必要"}, 
+                        {label: "機器導入目標達成率", story: "２０２６年度導入予定機器●●、▼▼、◆◆。導入に向けた各部協働と導入後の評価、改善の継続実施"},
+                        {label: "法人全体KPI達成につながる活動", story: "DX実施、部署関連携実施、ペーパーレス化、マニュアル改定、新規加算算定"}
+                    ]
+                },
+                departments: {}
+            },
+            {
+                perspective: "学習と成長の視点",
+                icon: icons.learning,
+                color: "border-l-4 border-purple-500",
+                corp: {
+                    goal: "人材確保と人事制度・働き方改革の推進",
+                    details: [
+                        "人事専門部署の設置", 
+                        "特定技能職員の受入と教育体制整備", // Updated
+                        "人事考課の適正化", 
+                        "BSCを用いた目標管理への理解度向上", 
+                        "職員が成長できる法人体制(キャリア開発)", // Updated
+                        "在宅機能集約に向けた経営陣、職員の認識統一" // Added
+                    ],
+                    kpi: [
+                        {label: "離職率", story: "職員満足度を計る指標"},
+                        {label: "特定技能受入数", story: "雇用のグローバル化と長期的な人手不足リスクの低減"},
+                        {label: "職員満足度", story: "改善部分の割り出しに活用"}
+                    ]
+                },
+                hospital: {
+                    goal: "人材確保・定着と働きがい向上策の強化",
+                    details: [
+                        "看護補助者体制整備と教育", // Updated
+                        "資格取得手当・研修支援拡充", 
+                        "積極的な学会・研修会への参加", 
+                        "デジタル機器の取り扱い習熟", 
+                        "川原賞・法人研究会への参加",
+                        "機能評価を通じた人材育成・学習強化", // Added
+                        "役職者の育成", // Added
+                        "柔軟な働き方・勤務形態推進・残業削減", // Added
+                        "部署間交流研修による他部署理解・連携深化" // Added
+                    ],
+                    kpi: [{label: "離職率改善", story: "職員満足度改善の取り組みの評価指標"}, {label: "資格手当受給者数", story: "法人としての取り組みが、職員のスキルアップ促進、医療の質向上につながっているかの確認指標"}, {label: "研修・学会発表数", story: "法人としての取り組みが、職員のスキルアップ促進、医療の質向上につながっているかの確認指標"}, {label: "川原賞・研究会発表", story: "法人内独自の研究会・表彰。職員が積極的に改善活動に取り組んでいるかが分かる"}]
+                },
+                departments: {}
+            }
+        ];
+
+        // --- DEPARTMENTS ACTION POPULATION (Including Cross-View Logic) ---
+        // Helper function to add action to department
+        const addDeptAction = (targetViewData, deptKey, perspectiveIndex, text, roles = ['all'], kpis = []) => {
+            if (!targetViewData) return;
+            const target = targetViewData[perspectiveIndex].departments;
+            if (!target[deptKey]) target[deptKey] = { actions: [], kpis: [] };
+            
+            target[deptKey].actions.push({ text: text, roles: roles });
+            if (kpis.length > 0) {
+                target[deptKey].kpis.push(...kpis);
+            }
+        };
+
+        // Initialize empty structure first
+        const allDeptsList = [...departmentsMain, ...departmentsNursing, ...departmentsMedical, ...adminDepts, ...homeLinkDepts, ...committeeDepts, ...affiliatedDepts];
+        
+        // Populate bscDataMain (and others)
+        bscDataMain.forEach(item => {
+             item.departments = {};
+             departmentsMain.forEach(d => item.departments[d.key] = {actions:[], kpis:[]});
+        });
+        
+        // Create other datasets
+        const createEmptyDataset = (depts) => {
+            return [0,1,2,3].map(i => ({
+                perspective: bscDataMain[i].perspective,
+                icon: bscDataMain[i].icon,
+                color: bscDataMain[i].color,
+                corp: bscDataMain[i].corp,
+                hospital: bscDataMain[i].hospital,
+                departments: depts.reduce((acc, d) => ({...acc, [d.key]: {actions:[], kpis:[]}}), {})
+            }));
+        };
+
+        const bscDataNursing = createEmptyDataset(departmentsNursing);
+        const bscDataMedicalDept = createEmptyDataset(departmentsMedical);
+        const bscDataAdmin = createEmptyDataset(adminDepts);
+        const bscDataHomeLink = createEmptyDataset(homeLinkDepts);
+        const bscDataCommittee = createEmptyDataset(committeeDepts);
+        const bscDataAffiliated = createEmptyDataset(affiliatedDepts);
+
+        // --- APPLY CSV ACTIONS TO ALL DATASETS ---
+        // 0: Finance, 1: Customer, 2: Process, 3: Learning
+
+        // 1. Finance Actions (財務の視点)
+        const financeActions = [
+            { depts: ['admin_general'], text: "老朽設備の修繕によるリスク低減", roles:['admin'], kpi: {label:"予算実施率", story:"計画的投資"} },
+            { depts: ['careWard', 'nursing_careWard'], text: "地ケア在院数目標達成", kpi: {label:"地ケア:●名/日", story:"稼働確保"} },
+            { depts: ['outpatient', 'nursing_outpatient'], text: "外来患者数目標達成", kpi: {label:"外来:●名/日", story:"需要獲得"} },
+            { depts: ['hospice', 'nursing_hospice'], text: "ホスピス患者数目標達成", kpi: {label:"ホスピス:●名/日", story:"稼働確保"} },
+            { depts: ['homeCare', 'nursing_homeCare', 'home_clinic'], text: "在宅患者数目標達成", kpi: {label:"在宅:施設●名/月,個人●名/月", story:"地域需要対応"} },
+            { depts: ['careWard', 'nursing_careWard'], text: "地ケア患者単価目標達成", kpi: {label:"単価:●円/日", story:"収益性"} },
+            { depts: ['outpatient', 'nursing_outpatient'], text: "外来患者単価目標達成", kpi: {label:"単価:●円/日", story:"収益性"} },
+            { depts: ['hospice', 'nursing_hospice'], text: "ホスピス患者単価目標達成", kpi: {label:"単価:●円/日", story:"収益性"} },
+            { depts: ['homeCare', 'nursing_homeCare', 'home_clinic'], text: "在宅患者単価目標達成", kpi: {label:"単価:施設●円/月,個人●円/月", story:"収益性"} }
+        ];
+
+        // 2. Process Actions (業務プロセスの視点)
+        // Note: CSV maps some actions labeled "業務" to this perspective
+        const processActions = [
+             { depts: ['admin_general'], text: "老朽設備の把握と修繕計画策定", roles:['admin'], kpi: {label:"報告書策定", story:"現状把握"} },
+             // REMOVED: { depts: ['outpatient', 'careWard', 'hospice', 'homeCare', 'nursing_outpatient', 'nursing_careWard', 'nursing_hospice', 'nursing_homeCare'], text: "高齢者救急の提供の拡充", ...}
+             // ADDED: Specific actions for departments
+             { depts: ['careWard'], text: "軽症救急患者の積極的な受け入れ", roles:['nurse', 'doctor'], kpi: {label:"在宅支援加算(緊急)", story:"診療報酬改定に合わせた機能の充実"} },
+             { depts: ['outpatient', 'nursing_outpatient', 'home_clinic'], text: "施設軽症救急患者の積極的な対応", roles:['doctor', 'nurse'], kpi: {label:"施設軽症救急受入", story:"地ケア入院の窓口に"} },
+             { depts: ['outpatient', 'nursing_outpatient', 'home_clinic'], text: "在宅患者支援病床初期加算（緊急入院の場合）件数", roles:['doctor', 'nurse'], kpi: {label:"在宅支援加算(緊急)", story:"診療報酬改定に合わせた機能の充実"} },
+
+             { depts: ['admin_corp'], text: "地域講座の実施", roles:['admin'], kpi: {label:"45回/年", story:"啓発活動"} },
+             { depts: ['admin_corp', 'admin_medical'], text: "インスタ投稿数、X投稿数", roles:['admin'], kpi: {label:"投稿数●件/月", story:"広報強化"} },
+             { depts: ['admin_corp'], text: "WEB更新件数", roles:['admin'], kpi: {label:"年●件", story:"情報発信"} },
+             { depts: ['outpatient', 'nursing_outpatient'], text: "外来完全予約制の本格実施(受付動線再構築)", roles:['doctor', 'admin', 'nurse', 'med_lab', 'med_rad', 'med_assist', 'med_rehab'], kpi: {label:"外来患者予約割合", story:"効率化"} },
+             { depts: ['comm_disaster'], text: "BCP計画の完成と訓練実施", roles:['all'], kpi: {label:"BCP全体訓練実施", story:"危機管理"} },
+             { depts: ['outpatient', 'nursing_outpatient'], text: "Web予約", roles:['admin', 'med_assist'], kpi: {label:"Web予約割合", story:"利便性"} }
+        ];
+
+        // 3. Learning Actions (学習と成長の視点)
+        const learningActions = [
+            { depts: ['med_dept'], text: "かかりつけ医研修制度の受講", roles:['doctor'], kpi: {label:"受講率100%", story:"質向上"} },
+            { depts: ['admin_general'], text: "職位別交流会の実施", roles:['all'], kpi: {label:"実施、報告件数", story:"連携強化"} }
+        ];
+
+        // Helper to distribute actions
+        const distribute = (actions, pIndex) => {
+            actions.forEach(action => {
+                const kpis = action.kpi ? [action.kpi] : [];
+                // Check Main Data
+                action.depts.forEach(d => addDeptAction(bscDataMain, d, pIndex, action.text, action.roles || ['all'], kpis));
+                // Check Nursing
+                action.depts.forEach(d => addDeptAction(bscDataNursing, d, pIndex, action.text, action.roles || ['all'], kpis));
+                // Check Medical
+                action.depts.forEach(d => addDeptAction(bscDataMedicalDept, d, pIndex, action.text, action.roles || ['all'], kpis));
+                // Check Admin
+                action.depts.forEach(d => addDeptAction(bscDataAdmin, d, pIndex, action.text, action.roles || ['all'], kpis));
+                // Check Home Link
+                action.depts.forEach(d => addDeptAction(bscDataHomeLink, d, pIndex, action.text, action.roles || ['all'], kpis));
+                 // Check Committee
+                action.depts.forEach(d => addDeptAction(bscDataCommittee, d, pIndex, action.text, action.roles || ['all'], kpis));
+            });
+        };
+
+        distribute(financeActions, 0); // Finance
+        distribute(processActions, 2); // Process (CSV maps '業務' here)
+        distribute(learningActions, 3); // Learning
+
+
+        const viewDataMap = {
+            'main': bscDataMain,
+            'nursing': bscDataNursing,
+            'medical_dept': bscDataMedicalDept,
+            'admin': bscDataAdmin,
+            'home_link': bscDataHomeLink,
+            'committee': bscDataCommittee,
+            'affiliated': bscDataAffiliated
+        };
+
+        const deptListMap = {
+            'main': departmentsMain,
+            'nursing': departmentsNursing,
+            'medical_dept': departmentsMedical,
+            'admin': adminDepts,
+            'home_link': homeLinkDepts,
+            'committee': committeeDepts,
+            'affiliated': affiliatedDepts
+        };
+
+        let currentData = bscDataMain;
+        let currentView = 'main';
+        let currentDeptList = departmentsMain;
+
+        function switchView(view) {
+            currentView = view;
+            
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                if (btn.dataset.view === view) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            const table = document.getElementById('main-table');
+            table.className = `w-full min-w-[1600px] border-collapse text-left mode-${view}`;
+
+            currentData = viewDataMap[view] || bscDataMain;
+            currentDeptList = deptListMap[view] || departmentsMain;
+            
+            for (let key in visibility) delete visibility[key];
+            currentDeptList.forEach(d => visibility[d.key] = true);
+            
+            if (view === 'affiliated') {
+                isHospitalGoalVisible = false;
+            } else {
+                isHospitalGoalVisible = true;
+            }
+
+            filterRole('all');
+            renderAll();
+        }
+
+        function renderControls() {
+            const container = document.getElementById('controls-container');
+            container.innerHTML = '<span class="text-xs font-bold text-gray-500 uppercase mr-2">部署表示:</span>';
+            
+            if (currentView === 'main' || currentView === 'affiliated') {
+                const hBtn = document.createElement('button');
+                const isHVisible = isHospitalGoalVisible;
+                hBtn.className = `flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium transition-colors mr-2 ${isHVisible ? 'bg-blue-900 text-white shadow-sm' : 'bg-gray-200 text-gray-500 hover:bg-gray-300'}`;
+                hBtn.innerHTML = `${isHVisible ? icons.eye : icons.eyeOff} 病院目標`;
+                hBtn.onclick = () => {
+                    isHospitalGoalVisible = !isHospitalGoalVisible;
+                    renderAll();
+                };
+                container.appendChild(hBtn);
+                
+                const divider = document.createElement('div');
+                divider.className = 'w-px h-4 bg-gray-300 mx-1';
+                container.appendChild(divider);
+            }
+
+            currentDeptList.forEach(dept => {
+                const btn = document.createElement('button');
+                const isVisible = visibility[dept.key];
+                let activeColor = 'bg-blue-600';
+                if (currentView === 'nursing') activeColor = 'bg-pink-600';
+                else if (currentView === 'medical_dept') activeColor = 'bg-teal-600';
+                else if (currentView === 'admin') activeColor = 'bg-gray-600';
+                else if (currentView === 'home_link') activeColor = 'bg-orange-600';
+                else if (currentView === 'committee') activeColor = 'bg-red-600';
+                else if (currentView === 'affiliated') activeColor = 'bg-amber-600';
+                else if (dept.group === 'facility') activeColor = 'bg-yellow-600';
+                
+                btn.className = `flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium transition-colors ${isVisible ? `${activeColor} text-white shadow-sm` : 'bg-gray-200 text-gray-500 hover:bg-gray-300'}`;
+                btn.innerHTML = `${isVisible ? icons.eye : icons.eyeOff} ${dept.name}`;
+                btn.onclick = () => {
+                    visibility[dept.key] = !visibility[dept.key];
+                    renderAll();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function renderHeader() {
+            const row = document.getElementById('table-header');
+            while (row.children.length > 3) {
+                row.removeChild(row.lastChild);
+            }
+            
+            // Re-order: Corporate 1st, Hospital Goal 2nd (if visible)
+            
+            // 1. Corporate
+            // Note: Since renderHeader dynamically injects, we need to handle fixed columns here too 
+            // BUT currently the fixed columns are static in HTML inside <thead>. 
+            // The dynamic part is only for departments. 
+            // Wait, previous code cleared `row` and then appended dynamic deps, which would wipe static headers.
+            // Actually the previous implementation logic was:
+            // "while (row.children.length > 3)" -> keep first 3 static columns.
+            // Now we swapped static columns in HTML.
+            
+            // We need to manage Hospital Goal visibility.
+            const hospHeader = document.getElementById('hospital-goal-header');
+            if (hospHeader) {
+                if (isHospitalGoalVisible) {
+                    hospHeader.style.display = 'table-cell';
+                } else {
+                    hospHeader.style.display = 'none';
+                }
+            }
+            
+            currentDeptList.forEach((dept, index) => {
+                if (!visibility[dept.key]) return;
+                const th = document.createElement('th');
+                
+                th.className = `p-3 w-56 font-bold border-r border-slate-200 ${dept.color} align-bottom`;
+                th.innerHTML = `
+                    <div class="flex flex-col">
+                        <span class="text-sm">${dept.name}</span>
+                        ${currentView === 'main' && dept.group === 'facility' ? '<span class="text-[10px] text-yellow-600 font-normal">関連施設</span>' : ''}
+                    </div>
+                `;
+                row.appendChild(th);
+            });
+        }
+
+        function updateGroupingHeader() {
+            const hospGoalSingle = document.getElementById('group-header-hospital-single');
+            const hospDepts = document.getElementById('group-header-hospital-depts');
+            const facilityHeader = document.getElementById('group-header-facility');
+
+            // 1. Hospital Goal Group (Single Column)
+            if (hospGoalSingle) {
+                if (isHospitalGoalVisible && currentView !== 'affiliated') {
+                     hospGoalSingle.style.display = 'table-cell';
+                } else {
+                     hospGoalSingle.style.display = 'none';
+                }
+            }
+
+            // 2. Hospital Departments Group
+            if (hospDepts) {
+                const hospitalDeptsList = currentDeptList.filter(d => d.group === 'hospital');
+                const visibleCount = hospitalDeptsList.filter(d => visibility[d.key]).length;
+
+                if (visibleCount > 0) {
+                     hospDepts.style.display = 'table-cell';
+                     hospDepts.colSpan = visibleCount;
+                     
+                     if (currentView === 'nursing') hospDepts.innerText = "Nursing Departments (看護部署)";
+                     else if (currentView === 'medical_dept') hospDepts.innerText = "Medical Departments (診療部署)";
+                     else if (currentView === 'admin') hospDepts.innerText = "Admin Departments (事務部署)";
+                     else if (currentView === 'home_link') hospDepts.innerText = "Home Care & Link Departments";
+                     else if (currentView === 'committee') hospDepts.innerText = "Committees (委員会)";
+                     else hospDepts.innerText = "Hospital Departments (病院各部署)";
+                } else {
+                     hospDepts.style.display = 'none';
+                }
+            }
+
+            // 3. Facility Group
+            if (facilityHeader) {
+                const facilityDeptsList = currentDeptList.filter(d => d.group === 'facility');
+                const visibleFacilityCount = facilityDeptsList.filter(d => visibility[d.key]).length;
+
+                if (visibleFacilityCount > 0) {
+                    facilityHeader.style.display = 'table-cell';
+                    facilityHeader.colSpan = visibleFacilityCount;
+                } else {
+                    facilityHeader.style.display = 'none';
+                }
+            }
+        }
+
+        let currentRoleFilter = 'all';
+
+        function filterRole(role) {
+            currentRoleFilter = role;
+            
+            const buttons = ['all', 'nurse', 'doctor', 'rehab', 'admin', 'other'];
+            buttons.forEach(r => {
+                const btn = document.getElementById(`btn-${r}`);
+                if (r === role) {
+                    btn.classList.add('ring-2', 'ring-offset-1', 'ring-blue-400');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-offset-1', 'ring-blue-400');
+                }
+            });
+
+            const allItems = document.querySelectorAll('.action-item');
+            allItems.forEach(item => {
+                const roles = item.dataset.roles.split(',');
+                if (role === 'all' || roles.includes(role) || roles.includes('all')) {
+                    item.classList.remove('dimmed');
+                    if (role !== 'all') item.classList.add('highlight'); else item.classList.remove('highlight');
+                } else {
+                    item.classList.add('dimmed');
+                    item.classList.remove('highlight');
+                }
+            });
+        }
+
+        function getRoleBadge(role) {
+            // Map roles to labels and CSS classes
+            const roleMap = {
+                nurse: { label: "看護", css: "role-nurse" },
+                doctor: { label: "医師", css: "role-doctor" },
+                rehab: { label: "リハ", css: "role-rehab" },
+                med_rehab: { label: "リハ", css: "role-rehab" }, // Map med_rehab to rehab style
+                admin: { label: "事務", css: "role-admin" },
+                med_assist: { label: "医師補助", css: "role-admin" }, // Assist uses admin style
+                med_lab: { label: "検査", css: "role-other" }, // Lab uses other style
+                med_rad: { label: "放射線", css: "role-other" }, // Rad uses other style
+                other: { label: "薬/検/栄/他", css: "role-other" },
+                all: { label: "全職種", css: "role-all" }
+            };
+
+            const def = roleMap[role] || { label: role, css: "role-other" };
+            return `<span class="role-badge ${def.css}">${def.label}</span>`;
+        }
+
+        function renderBody() {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            currentData.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-gray-200 hover:bg-gray-50/50';
+
+                // 1. Perspective
+                const tdPers = document.createElement('td');
+                tdPers.className = `p-4 align-top sticky left-0 z-10 shadow-r ${item.color} bg-white`;
+                tdPers.innerHTML = `<div class="flex flex-col gap-2 font-bold text-gray-800 mb-2 items-center text-center">${item.icon} <span class="text-sm">${item.perspective}</span></div>`;
+                tr.appendChild(tdPers);
+                
+                const renderKpiBadges = (kpis) => {
+                     if(!kpis) return '';
+                     return kpis.map(k => {
+                         return `
+                             <div class="kpi-item inline-block bg-slate-100 border border-slate-300 px-2 py-1 rounded shadow-sm text-xs mr-1 mb-1 hover:bg-slate-200 transition-colors">
+                                 ${k.label}
+                                 <div class="kpi-tooltip">
+                                    <div class="font-bold border-b border-slate-500 mb-1 pb-1">意図・ストーリー</div>
+                                    ${k.story}
+                                 </div>
+                             </div>
+                         `;
+                     }).join('');
+                };
+
+                // 2. Corporate Goal (MOVED BACK to 2nd column)
+                const tdCorp = document.createElement('td');
+                tdCorp.className = 'p-4 align-top border-r border-slate-300 bg-slate-50/50';
+                
+                tdCorp.innerHTML = `
+                    <div class="font-bold text-slate-800 text-sm mb-3">${item.corp.goal}</div>
+                    <div class="mb-4">${item.corp.details.map(d => `<div class="text-xs text-gray-600 mb-1 flex items-start"><span class="text-slate-400 mr-1">•</span>${d}</div>`).join('')}</div>
+                    <div class="border-t border-slate-200 pt-2">
+                        <span class="text-[10px] font-bold text-slate-400 block mb-1">法人全体KPI</span>
+                        <div class="flex flex-wrap items-start">${renderKpiBadges(item.corp.kpi)}</div>
+                    </div>
+                `;
+                tr.appendChild(tdCorp);
+
+                // 3. Hospital Goal (MOVED BACK to 3rd column)
+                const tdHosp = document.createElement('td');
+                tdHosp.className = 'p-4 align-top border-r-2 border-blue-300 bg-blue-50/30';
+                
+                if (!isHospitalGoalVisible) {
+                     tdHosp.style.display = 'none';
+                } else {
+                     tdHosp.style.display = 'table-cell';
+                     
+                     let discussionHtml = '';
+                     if (item.hospital.discussion) {
+                        discussionHtml = `
+                            <div class="mt-3 p-2 rounded text-xs font-bold discussion-box">
+                                <div class="flex items-center gap-1 mb-1 text-yellow-700">
+                                    <i class="ph ph-warning-circle"></i>
+                                    検討事項
+                                </div>
+                                ${item.hospital.discussion}
+                            </div>
+                        `;
+                    }
+
+                    tdHosp.innerHTML = `
+                        <div class="font-bold text-blue-900 text-sm mb-3">${item.hospital.goal}</div>
+                        <div class="mb-4">${item.hospital.details.map(d => `<div class="text-xs text-blue-900 mb-1 flex items-start"><span class="text-blue-400 mr-1">▶</span>${d}</div>`).join('')}</div>
+                        ${discussionHtml}
+                        <div class="border-t border-blue-200 pt-2 mt-3">
+                            <span class="text-[10px] font-bold text-blue-400 block mb-1">病院全体KPI</span>
+                            <div class="flex flex-wrap items-start">${renderKpiBadges(item.hospital.kpi)}</div>
+                        </div>
+                    `;
+                }
+                tr.appendChild(tdHosp);
+
+                // 4. Departments
+                currentDeptList.forEach((dept, index) => {
+                    if (!visibility[dept.key]) return;
+                    
+                    const tdDept = document.createElement('td');
+                    tdDept.className = `p-3 align-top border-r border-gray-100 ${dept.color} bg-opacity-30 group relative`;
+                    
+                    let deptData = item.departments[dept.key];
+                    if (!deptData) deptData = { actions: [], kpis: [] };
+
+                    let actionsHtml = '';
+                    if (deptData.actions.length === 0) {
+                        actionsHtml = `<div class="text-xs text-gray-400 italic py-4 text-center">（未入力）</div>`;
+                    } else {
+                        actionsHtml = deptData.actions.map(a => {
+                            const rolesBadges = a.roles ? a.roles.map(r => getRoleBadge(r)).join('') : '';
+                            return `
+                            <div class="action-item mb-3 text-sm text-gray-700 leading-snug pl-3 relative p-1 transition-all" data-roles="${a.roles ? a.roles.join(',') : ''}">
+                                <span class="absolute left-0 top-2.5 w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
+                                ${a.text}
+                                <div class="mt-1">${rolesBadges}</div>
+                            </div>`;
+                        }).join('');
+                    }
+
+                    let deptKpiHtml = '';
+                    if (deptData.kpis.length > 0) {
+                        deptKpiHtml = renderKpiBadges(deptData.kpis);
+                    }
+
+                    tdDept.innerHTML = `
+                        <div class="flex flex-col h-full justify-between">
+                            <div>${actionsHtml}</div>
+                            <div class="mt-3 pt-2 border-t border-gray-200/50">
+                                <div class="text-[10px] font-bold text-gray-500 mb-1 uppercase">KPI</div>
+                                <div class="flex flex-wrap items-start">${deptKpiHtml}</div>
+                            </div>
+                        </div>
+                    `;
+                    tr.appendChild(tdDept);
+                });
+
+                tbody.appendChild(tr);
+            });
+            
+            if (currentRoleFilter !== 'all') {
+                filterRole(currentRoleFilter);
+            }
+        }
+        
+        function renderAll() {
+            renderControls();
+            renderHeader();
+            renderBody();
+            updateGroupingHeader();
+        }
+
+        renderAll();
+
+    </script>
+</body>
+</html>
