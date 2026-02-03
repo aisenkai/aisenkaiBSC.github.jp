@@ -1,0 +1,1 @@
+# aisenkaiBSC.github.jp
